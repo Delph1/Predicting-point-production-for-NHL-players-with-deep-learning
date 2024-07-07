@@ -18,6 +18,7 @@ Syftet är att ta denna data, städa och transformera den för att kunna träna 
 
 Datakälla
 Länk 1: <https://moneypuck.com/data.htm>
+
 Länk 2: <https://peter-tanner.com/moneypuck/downloads/MoneyPuckDataDictionaryForPlayers.csv>
 
 En närmare beskrivning av alla olika datapunkter finns att ladda ner via Länk 2 ovan. Den definierar 150 olika datapunkter som samlats in för alla spelare sedan NHL-säsongen 2008/09. Filerna innehåller även fyra kolumner identifierare för spelare och lagtillhörighet. Totalt innehåller en konkatenerad fil av alla tillgängliga säsonger 72 055 rader. 
@@ -35,31 +36,17 @@ Dessa två filer slås sedan ihop baserat på filernas interna spelar-id. Detta 
 
 **Diagram 1.** Funktion för att räkna ut ålder från födelsedatum och säsong (i Python)
 
-for index, row in df.iterrows():
-
-`    `birthDate = datetime.datetime.strptime(row['birthDate'], '%Y-%m-%d').date()
-
-`    `if birthDate.month >= 10:
-
-`        `age = row['season'] - birthDate.year
-
-`    `else:
-
-`        `age = row['season'] - birthDate.year + 1
-
-`    `df.at[index, 'age'] = age
+![Graph 1](001.png)
 
 //df == dataframe med alla spelares statistik samt en kolumn som heter birthDate med deras födelsedatum. 
 
 
-![Graph 1](001.png)
-
-
 Ur filen utesluts sedan alla målvakter och alla situationer som är delmoment och i stället sparas endast.
 
-df = df.loc[df.situation == 'all']
 
-![Graph 2](002.png)**Diagram 2.** Exempel på kod som väljer ut bara rader med alla situationer med hjälp av pandas
+**Diagram 2.** Exempel på kod som väljer ut bara rader med alla situationer med hjälp av pandas
+
+![Graph 2](002.png)
 
 En grafisk analys av datan görs med Colorado Avalanche säsongen 2016/17 där vi plottar Corsi-on-ice vs Corsi-off-ice med poängproduktion (I\_F\_points) som storlek på punkten. Det var en rätt horribel säsong för dem och därav av lite mer intressant än ett slumpmässigt valt lag. Det görs sedan en jämförelse med Pittsburgh Penguins som vann Stanley Cup denna säsong. 
 
