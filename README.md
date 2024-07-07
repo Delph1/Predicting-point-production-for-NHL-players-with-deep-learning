@@ -16,7 +16,8 @@ Moneypuck publicerar all sin grunddata i form av kommaseparerade filer fritt på
 
 Syftet är att ta denna data, städa och transformera den för att kunna träna ett artificiellt neuronnätverk med den för att kunna prediktera poängproduktion för individuella spelare. Det kommer att göras jämförelse mellan en enkel regressionsmodell och ett mer avancerat artificiellt neuronnätverk.
 
-Datakälla
+### Datakälla
+
 Länk 1: <https://moneypuck.com/data.htm>
 
 Länk 2: <https://peter-tanner.com/moneypuck/downloads/MoneyPuckDataDictionaryForPlayers.csv>
