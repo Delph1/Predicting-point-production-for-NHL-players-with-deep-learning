@@ -52,20 +52,14 @@ for index, row in df.iterrows():
 //df == dataframe med alla spelares statistik samt en kolumn som heter birthDate med deras födelsedatum. 
 
 
-![](df3d47d1-196a-4228-9c23-68660610fc83.001.png)
-
-
-
-
-
-
+![Graph 1](001.png)
 
 
 Ur filen utesluts sedan alla målvakter och alla situationer som är delmoment och i stället sparas endast.
 
 df = df.loc[df.situation == 'all']
 
-![](df3d47d1-196a-4228-9c23-68660610fc83.002.png)**Diagram 2.** Exempel på kod som väljer ut bara rader med alla situationer med hjälp av pandas
+![Graph 2](002.png)**Diagram 2.** Exempel på kod som väljer ut bara rader med alla situationer med hjälp av pandas
 
 En grafisk analys av datan görs med Colorado Avalanche säsongen 2016/17 där vi plottar Corsi-on-ice vs Corsi-off-ice med poängproduktion (I\_F\_points) som storlek på punkten. Det var en rätt horribel säsong för dem och därav av lite mer intressant än ett slumpmässigt valt lag. Det görs sedan en jämförelse med Pittsburgh Penguins som vann Stanley Cup denna säsong. 
 
@@ -117,9 +111,7 @@ Corsi är ett värde för skottfördelning mellan lagen. 50% innebär att lika m
 
 **Diagram 3.** Colorado Avalanche, säsong 2016/17 
 
-![En bild som visar text, skärmbild, nummer, Teckensnitt
-
-Automatiskt genererad beskrivning](df3d47d1-196a-4228-9c23-68660610fc83.003.png)
+![Graph 3](003.png)
 
 I just denna graf är det inte speciellt många spelare som faller inom off-ice corsi < 0,5 och on-ice corsi > 0,5, vilket är rimligt med ett så pass dåligt lag. 
 
@@ -127,9 +119,7 @@ Vi ser att Tyson Barrie, Nathan MacKinnon, Mikko Rantanen och Gabriel Landeskog 
 
 **Diagram 4.** Pittsburgh Penguins, säsongen 2016/17
 
-![En bild som visar text, skärmbild, nummer, Teckensnitt
-
-Automatiskt genererad beskrivning](df3d47d1-196a-4228-9c23-68660610fc83.004.png)
+![Graph 4](004.png)
 
 Här ser vi hur en av tidens mest underskattade spelare placerar sig allra längst ner i högra hörnet, Patric Hörnqvist. Vi ser också Skellefteå AIK-bekantingen Tom Kuhnhackl som var en av lagets minst betydelsefulla spelare, men i Skellefteå AIK var han en mycket uppskattad spelare.
 
@@ -142,32 +132,26 @@ Den första baslinjemodellen som togs fram hade ett djuplager med en kärna och 
 
 **Diagram 5.** Förlustgraf för prediktion av I\_F\_points från gamescore. 
 
-![En bild som visar text, diagram, linje, Graf
-
-Automatiskt genererad beskrivning]
+![Graph 5](005.png)
 
 När vi utvärderar modellen mot testsetet genererar den en noggrannhet på 4,520 och förlust på 35,5369. 
 #### *Prediktion från alla invärden*
-**Diagram 6.** Förlustgraf för prediktion av I\_F\_points från alla 149 invärden.![En bild som visar text, Graf, linje, diagram
+**Diagram 6.** Förlustgraf för prediktion av I\_F\_points från alla 149 invärden.
 
-Automatiskt genererad beskrivning](df3d47d1-196a-4228-9c23-68660610fc83.006.png)
+![Graph 6](006.png)
 
 När modellen utvärderades landade noggrannheten på 0,842 och förlusten på 1,2969.
+
 ### Djuplärning med ett lager med 32 kärnor
 #### *Prediktion från gamescore*
+
 **Diagram 7.** Förlustgraf för prediktion av I\_F\_points från gamescore med 32 kärnor i dolt lager
 
-![En bild som visar text, diagram, linje, Graf
-
-Automatiskt genererad beskrivning]
+![Graph 7](007.png)
 
 Testnoggrannheten landade på 4,528 och förlusten på 35.4948. 
 #### *Prediktion från alla invärden*
 **Diagram 8.** Förlustgraf för prediktion av I\_F\_points från alla invärden med 32 kärnor i dolt lager.
-
-![En bild som visar diagram, Graf, linje, text
-
-Automatiskt genererad beskrivning](df3d47d1-196a-4228-9c23-68660610fc83.007.png)
 
 Testnoggrannheten landade på 1,231 och testförlusten på 2,7288.
 ### Keras tuner
@@ -189,8 +173,10 @@ Keras tuner testades endast med samtliga värden att predikera mot. Att använda
 |**10**|1\.089|1|0\.01|64|96|
 
 Värt att poängtera att modellen kunde ha upp till tre lager och även använda sig av en inlärningstakt på 0.001, men inget av detta förekommer bland de tio bästa modellerna. 
+
 ## Diskussion
 ### Jämförelse mellan enkel regression och modell med djuplager
+
 Graferna för den enkla regressionen och när vi introducerade ett dolt djuplager med 32 kärnor är skrämmande lika för när vi försökte prediktera enbart på gamescore. Detta beror troligen på en begränsning i datan vi matar in. Med endast ett invärde landar modellen snabbt på en platå och djuplagret gör ingen skillnad. Det finns för lite att jobba med. 
 
 Prediktionen med samtliga invärden nådde en lägre förlust med den enkla regressionsmodellen än modellen med ett djuplager. Djuplagermodellen stannade sin träning efter 35 epoker och då låg förlusten under 5 medan regressionsmodellen nådde strax över 1 efter 20 epoker och fortsatte sakta nedåt fram till 100 epoker som var maxvärdet. 
@@ -198,13 +184,17 @@ Prediktionen med samtliga invärden nådde en lägre förlust med den enkla regr
 Kurvan ser ut att ha plattats ut mellan 80-100 epoker, men ett lokalt minimum hade nog hittat tidigare än så om vi nyttjat ”early stopping” och en relativt låg tröskel om 3-5 epoker. 
 
 Platån som vi såg med den enstaka värdet, gamescore, kom inte när vi körde alla invärden och vi fick en mer normal träningskurva. Även fel och noggrannhet blev mer normala, även om de fortfarande är långt ifrån speciellt bra. 
+
 ### Keras tuner
+
 Tabell 1 visar tydligt att de lägsta förlustvärden kom fram genom endast 1 lager trots att upp till tre var möjligt och inlärningstakten 0.01 användes av alla modeller som i listan. Det verkar även som att färre antal kärnor i lagret var gynnsamt för prediktionen. Man skulle möjligen kunna argumentera för att en mindre batch-size också är att föredra. Den verkar korrelera med en högre testförlust. 
 
 Model 4 är undantaget som har en större batch-size och 128 kärnor, medan hälften av modeller bland de tio bästa har endast 32 kärnor. 
 
 Anledningen till att färre är bättre beror troligen på den lilla datamängden som vi tränar på samtidigt som problemet egentligen inte är överdrivet komplext. Vi vill försöka se trender och göra regressioner baserat på många parametrar per rad.
+
 ### Avslutande ord
+
 Och om jag ska på något vis sammanfatta detta så är det nog med hjälp av uttrycket förkortat KISS, Keep It Simple, Stupid. Enkel regression löser detta problem snabbare och bättre. När det inte finns mer data än det gör blir ett stort neuronnätverk rent av sämre på alla tänkbara sätt. Det tar längre tid att räkna, krångligare kod, kräver mer prestanda och kostar mer att räkna ut. 
 
 Det var ett kul försök, men för denna typ av prediktion tjänar man på att hålla det relativt enkelt. Jag hade nog behövt mycket, mycket mer data för att göra detta, men då ska man också hålla i bakhuvudet att den ishockey spelas idag är inte densamma som spelades för 20, 30, 40, 50 år sedan. 
@@ -212,7 +202,9 @@ Det var ett kul försök, men för denna typ av prediktion tjänar man på att h
 Hur relevant är den datan för dagens ishockeyspelare? Reglerna har ändrats och spelarna är bättre tränade än någonsin. Sen sent som på 1980-talet var det inte ovanligt att spelare tog en cigarett i pauserna. Det är helt otänkbart idag där spelarna tvingas vara renlighetsmänniskor närmast för att de ska kunna leva upp till sin fulla potential. 
 
 Det man troligtvis hade haft större framgångar med vore att försöka förutsäga vinst eller förlust genom att kombinera spelardatan med historiska matchresultat, men då är vi inne på sportsbetting och det vill jag hålla mig borta ifrån. Det skulle kunna vara intressant att försöka vända på det dock försöka se betydelsen en spelare har för att ett lag ska vinna en match. Det finns en parameter kallad WAR (Wins Above Replacement) som används för detta. De som tagit fram modeller för det har dock oftast inte delat med sig av hur de tagit fram dessa. (Solberg, 2019)
+
 # Referenser
+
 Gambino, A. (2021). *NHL Skater Metrics - EDA and Projections*. Hämtat från Kaggle: https://www.kaggle.com/code/alexgambino/nhl-skater-metrics-eda-and-projections/notebook
 
 Gough, C. (den 23 04 2024). *National Hockey League - total league revenue from 2005/06 to 2022/23*. Hämtat från statista: https://www.statista.com/statistics/193468/total-league-revenue-of-the-nhl-since-2006/
@@ -222,9 +214,3 @@ Solberg, L. (den 16 01 2019). *Wins Above Replacement: History, Philosophy, and 
 Tanner, P. (den 02 06 2014). *What Predicts Whether an NHL Coach Will Be Fired, And Whether It Matters*. Hämtat från FiveThirtyEight: https://fivethirtyeight.com/features/what-predicts-if-an-nhl-coach-will-be-fired-and-whether-it-matters/
 
 TensorFlow. (den 23 03 2024). *Basic regression: Predict fuel efficiency* . Hämtat från TensorFlow: https://www.tensorflow.org/tutorials/keras/regression
-
-
-
-[En bild som visar text, diagram, linje, Graf
-
-Automatiskt genererad beskrivning]: df3d47d1-196a-4228-9c23-68660610fc83.005.png
